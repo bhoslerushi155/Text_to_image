@@ -16,9 +16,9 @@ class Glove(object):
         for line in f:
             words = line.strip().split()
             word = words[0]
-            endcode = np.array(words[1:] , dtype=np.float32)
+            encode = np.array(words[1:] , dtype=np.float32)
             encd[word] = encode
-        file.close()
+        f.close()
         self.encoding = encd
 
     def encode_text(self , text):
@@ -26,7 +26,7 @@ class Glove(object):
         for w in text.split(' '):
             words.append(w.lower())
         length = len(words)
-        enc = np.zeros(shape=(self.encoding_dim , ))
-        vector = np.zeros(shape=(self.encoding_dim , length))
+        enc = np.zeros(shape=(self.encoding_dim , length))
+        vector = np.zeros(shape=(self.encoding_dim , ))
         vector[:] = np.sum(enc , axis=1)
         return vector
